@@ -15,8 +15,6 @@ import java.util.concurrent.CountDownLatch;
 
 class KafkaCountStream {
     public static void main(final String[] args){
-
-        // Check arguments length value
         if (args.length != 2) {
             System.out.println("Enter topic name, appId");
             return;
