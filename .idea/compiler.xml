@@ -8,6 +8,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="withKafka" />
+        <module name="with-Kafka-Twitter" />
       </profile>
     </annotationProcessing>
   </component>
