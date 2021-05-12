@@ -1,4 +1,4 @@
-package com.storage.simple.logic;
+package com.kfka.steam;
 
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.streams.KafkaStreams;
@@ -8,21 +8,24 @@ import org.apache.kafka.streams.StreamsConfig;
 import org.apache.kafka.streams.kstream.KStream;
 import org.apache.kafka.streams.kstream.KTable;
 import org.apache.kafka.streams.kstream.Produced;
+import org.apache.log4j.Logger;
 
 import java.util.Arrays;
 import java.util.Properties;
 import java.util.concurrent.CountDownLatch;
 
 class KafkaCountStream {
+    private static Logger LOGGER = Logger.getLogger(KafkaCountStream.class);
+
     public static void main(final String[] args){
         if (args.length != 2) {
-            System.out.println("Enter topic name, appId");
+            LOGGER.warn("Enter topic name, appId");
             return;
         }
 
         String topicName = args[0];
         String appId = args[1];
-        System.out.println("Count stream topic=" + topicName +", app=" + appId);
+        LOGGER.info("Count stream topic=" + topicName +", app=" + appId);
 
         Properties config = new Properties();
         config.put(StreamsConfig.APPLICATION_ID_CONFIG, appId);
@@ -53,20 +56,21 @@ class KafkaCountStream {
         Runtime.getRuntime().addShutdownHook(new Thread("streams-shutdown-hook") {
             @Override
             public void run() {
-                System.out.println("Kafka Stream close");
+                LOGGER.info("Kafka Stream close");
                 streams.close();
                 latch.countDown();
             }
         });
 
         try {
-            System.out.println("Kafka Stream start");
+            LOGGER.info("Kafka Stream start");
             streams.start();
             latch.await();
         } catch (Throwable e) {
+            LOGGER.warn(e.getMessage() + "\n" + Arrays.toString(e.getStackTrace()));
             System.exit(1);
         }
-        System.out.println("Kafka Stream exit");
+        LOGGER.info("Kafka Stream exit");
         System.exit(0);
     }
 

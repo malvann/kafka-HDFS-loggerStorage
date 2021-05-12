@@ -7,9 +7,13 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="withKafkaTwitter" />
         <module name="withKafka" />
-        <module name="with-Kafka-Twitter" />
+        <module name="withKafkaSteams" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="withSourceTask" target="14" />
+    </bytecodeTargetLevel>
   </component>
 </project>
